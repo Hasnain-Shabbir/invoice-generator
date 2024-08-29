@@ -1,9 +1,18 @@
+import { useState } from 'react';
+import { Input } from './components';
+
 function App() {
+  const [name, setName] = useState('');
+
   return (
-    <div className="bg-neutral-100">
-      <h1 className="text-4xl text-purple-700">
-        Welcome to Invoice Generator App!
-      </h1>
+    <div className="p-10">
+      <Input
+        handleOnChange={setName}
+        id="companyName"
+        placeholder="Company Name"
+        title="Company Name"
+        value={name}
+      />
     </div>
   );
 }
