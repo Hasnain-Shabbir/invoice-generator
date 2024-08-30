@@ -1,18 +1,9 @@
-import { useState } from 'react';
-import { Input } from './components';
+import { InvoiceForm } from './templates';
 
 function App() {
-  const [name, setName] = useState('');
-
   return (
     <div className="p-10">
-      <Input
-        handleOnChange={setName}
-        id="companyName"
-        placeholder="Company Name"
-        title="Company Name"
-        value={name}
-      />
+      <InvoiceForm />
     </div>
   );
 }
