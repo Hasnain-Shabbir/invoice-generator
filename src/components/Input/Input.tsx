@@ -16,7 +16,7 @@ const Input: FC<InputProps> = ({
   error,
   handleOnChange,
   id,
-  parentStyles,
+  parentStyles = '',
   placeholder = 'Placeholder...',
   styles = '',
   title,

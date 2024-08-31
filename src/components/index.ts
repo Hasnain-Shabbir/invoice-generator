@@ -4,4 +4,5 @@ export { default as Button } from './Button/Button';
 export { default as Container } from './Container/Container';
 export { default as Input } from './Input/Input';
 export { default as ItemsList } from './ItemsList/ItemsList';
+export { default as ItemRow } from './ItemRow/ItemRow';
 export { default as SelectDropdown } from './SelectDropdown/SelectDropdown';

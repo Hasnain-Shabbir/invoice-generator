@@ -1,49 +1,28 @@
-import { useState } from 'react';
-import { Input } from '..';
-import { Trash } from '../../assets';
+import React from 'react';
+import { Button, ItemRow } from '..';
+import { useItems } from '../../hooks';
+import { Plus } from '../../assets';
 
-const ItemsList = () => {
-  const [itemName, setItemName] = useState('');
+const ItemsList: React.FC = () => {
+  const { items, handleInputChange, handleAddItem, handleRemoveItem } =
+    useItems();
 
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold">Items List</h2>
-      <div className="flex items-center justify-center gap-4">
-        <div className="grid grid-cols-5 gap-4">
-          <Input
-            parentStyles="col-span-2"
-            value={itemName}
-            handleOnChange={setItemName}
-            id="itemName"
-            title="Item Name"
-            placeholder="Item name"
+      <div className="flex flex-col gap-4">
+        {items.map((item, index) => (
+          <ItemRow
+            key={index}
+            item={item}
+            index={index}
+            onInputChange={handleInputChange}
+            onRemove={handleRemoveItem}
           />
-          <Input
-            value={itemName}
-            handleOnChange={setItemName}
-            id="qty"
-            title="Qty."
-            placeholder="Qty"
-          />
-          <Input
-            value={itemName}
-            handleOnChange={setItemName}
-            id="price"
-            title="Price"
-            placeholder="Price"
-          />
-          <Input
-            value={itemName}
-            handleOnChange={setItemName}
-            id="total"
-            title="Total"
-            placeholder="Total"
-          />
-        </div>
-        <div>
-          <span className="mb-6 flex"></span>
-          <Trash />
-        </div>
+        ))}
+        <Button styles="w-full mt-4" icon={<Plus />} onClick={handleAddItem}>
+          Add New Item
+        </Button>
       </div>
     </div>
   );
