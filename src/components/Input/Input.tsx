@@ -4,6 +4,7 @@ interface InputProps {
   error?: string;
   handleOnChange: (value: string) => void;
   id: string;
+  parentStyles?: string;
   placeholder?: string;
   styles?: string;
   title: string;
@@ -15,6 +16,7 @@ const Input: FC<InputProps> = ({
   error,
   handleOnChange,
   id,
+  parentStyles,
   placeholder = 'Placeholder...',
   styles = '',
   title,
@@ -26,7 +28,7 @@ const Input: FC<InputProps> = ({
   };
 
   return (
-    <div>
+    <div className={`${parentStyles}`}>
       <label htmlFor={id} className="text-sm font-medium text-secondary-200">
         {title}
       </label>
