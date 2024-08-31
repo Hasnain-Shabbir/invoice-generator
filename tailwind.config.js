@@ -5,7 +5,7 @@ export default {
     extend: {
       boxShadow: {
         cm: '0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px 0px rgba(16, 24, 40, 0.08)',
-        input: '0px 1px 2px px rgba(16, 24, 40, 0.05)'
+        input: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
       },
       colors: {
         primary: {
@@ -29,6 +29,9 @@ export default {
       },
       maxWidth: {
         container: '1376px',
+      },
+      padding: {
+        4.5: '18px',
       },
     },
     plugins: [],
