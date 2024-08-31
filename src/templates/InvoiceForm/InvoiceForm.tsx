@@ -1,4 +1,4 @@
-import { BillFrom } from '../../components';
+import { BillFrom, ItemsList } from '../../components';
 import BillTo from '../../components/BillTo/BillTo';
 
 const InvoiceForm = () => {
@@ -7,6 +7,8 @@ const InvoiceForm = () => {
       <BillFrom />
       <div className="py-8"></div>
       <BillTo />
+      <div className="py-8"></div>
+      <ItemsList />
     </div>
   );
 };
