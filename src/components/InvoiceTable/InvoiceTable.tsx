@@ -13,10 +13,10 @@ interface InvoiceTableProps {
 
 const InvoiceTable: FC<InvoiceTableProps> = ({ items }) => {
   return (
-    <div className="mt-4">
-      <table className="w-full text-left">
-        <thead className="text-secondary-50">
-          <tr className="rounded-3xl bg-neutral-100">
+    <div className="mt-4 overflow-x-auto">
+      <table className="min-w-full text-left">
+        <thead className="bg-neutral-100 text-secondary-50">
+          <tr className="rounded-3xl">
             <th scope="col" className="rounded-l px-3 py-2 font-normal">
               Item
             </th>

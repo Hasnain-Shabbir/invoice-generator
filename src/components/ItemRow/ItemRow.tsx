@@ -22,10 +22,10 @@ const ItemRow: React.FC<ItemRowProps> = ({
   onInputChange,
   onRemove,
 }) => (
-  <div className="flex items-end gap-4">
-    <div className="grid grid-cols-5 items-center gap-4">
+  <div className="grid items-end gap-4 md:flex">
+    <div className="grid items-center gap-4 sm:grid-cols-4 md:grid-cols-5">
       <Input
-        parentStyles="col-span-2"
+        parentStyles="md:col-span-2"
         value={item.itemName}
         handleOnChange={value => onInputChange(index, 'itemName', value)}
         id={`itemName-${index}`}
@@ -57,7 +57,7 @@ const ItemRow: React.FC<ItemRowProps> = ({
         type="number"
       />
     </div>
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-end md:justify-center">
       <Button variant="outlined" onClick={() => onRemove(index)}>
         <Trash />
       </Button>

@@ -6,6 +6,7 @@ interface SelectDropdownProps {
   id: string;
   label: string;
   options: string[];
+  parentStyles?: string;
   placeholder?: string;
   styles?: string;
 }
@@ -15,6 +16,7 @@ const SelectDropdown: FC<SelectDropdownProps> = ({
   id,
   label,
   options,
+  parentStyles = '',
   placeholder = 'Select an option...',
   styles = '',
 }) => {
@@ -31,7 +33,7 @@ const SelectDropdown: FC<SelectDropdownProps> = ({
   const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${parentStyles}`}>
       <label htmlFor={id} className="text-sm font-medium text-secondary-200">
         {label}
       </label>
