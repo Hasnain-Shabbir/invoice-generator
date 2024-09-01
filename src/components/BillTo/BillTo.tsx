@@ -35,7 +35,7 @@ const BillTo = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold">Bill To</h2>
-      <div className="mt-4 grid grid-cols-2 gap-4">
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
           handleOnChange={value => handleInputChange('clientName', value)}
           id="clientName"
@@ -48,8 +48,13 @@ const BillTo = () => {
           title="Client's Email"
           value={formData.clientEmail}
         />
-        <div className="col-span-full grid grid-cols-3 gap-4">
-          <SelectDropdown options={countries} label="Country" id="country" />
+        <div className="col-span-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          <SelectDropdown
+            parentStyles="col-span-full md:col-auto"
+            options={countries}
+            label="Country"
+            id="country"
+          />
           <Input
             handleOnChange={value => handleInputChange('city', value)}
             id="city"
@@ -74,7 +79,7 @@ const BillTo = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8 grid grid-cols-2 gap-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <Input
           handleOnChange={value => handleInputChange('invoiceDate', value)}
           id="invoiceDate"

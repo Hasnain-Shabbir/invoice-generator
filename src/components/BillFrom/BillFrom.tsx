@@ -21,7 +21,7 @@ const BillFrom = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold">Bill From</h2>
-      <div className="mt-4 grid grid-cols-2 gap-4">
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Input
           handleOnChange={value => handleInputChange('companyName', value)}
           id="companyName"
@@ -34,7 +34,7 @@ const BillFrom = () => {
           title="Company Email"
           value={formData.companyEmail}
         />
-        <div className="col-span-full grid grid-cols-3 gap-4">
+        <div className="col-span-full grid gap-4 sm:grid-cols-3">
           <Input
             handleOnChange={value => handleInputChange('country', value)}
             id="country"

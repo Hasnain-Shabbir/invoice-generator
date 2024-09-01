@@ -27,11 +27,11 @@ const InvoiceDetail = () => {
       <h3 className="text-lg font-semibold">New Invoice</h3>
       <Divider margin="my-4" />
       <div className="space-y-8">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
           <ListColumn listData="12 Dec, 2024" title="Invoice Date" />
           <ListColumn listData="Net 30 Days" title="Payment Terms" />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
           <ListColumn listData={listDataBilledFrom} title="Billed From" />
           <ListColumn listData={listDataBilledTo} title="Billed To" />
         </div>

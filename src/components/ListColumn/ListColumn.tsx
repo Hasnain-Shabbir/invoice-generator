@@ -22,7 +22,9 @@ const ListColumn: FC<ListColumnProps> = ({ title, styles = '', listData }) => {
   return (
     <div className={styles}>
       <h4 className="mb-3 text-secondary-50">{title}</h4>
-      <ul className="space-y-1.5 leading-loose">{renderListItems()}</ul>
+      <ul className="space-y-1.5 break-all leading-loose">
+        {renderListItems()}
+      </ul>
     </div>
   );
 };
