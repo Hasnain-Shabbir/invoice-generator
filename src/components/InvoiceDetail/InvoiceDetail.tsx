@@ -1,4 +1,4 @@
-import { Divider, InvoiceTable, ListColumn } from '..';
+import { Divider, InvoiceSummary, InvoiceTable, ListColumn } from '..';
 
 const InvoiceDetail = () => {
   const listDataBilledFrom = [
@@ -42,6 +42,7 @@ const InvoiceDetail = () => {
       </div>
       <InvoiceTable items={invoiceData} />
       <Divider margin="my-4" />
+      <InvoiceSummary tax="10" subtotal={320} />
     </div>
   );
 };
