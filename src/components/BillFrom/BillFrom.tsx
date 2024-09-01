@@ -1,31 +1,12 @@
-import { useState } from 'react';
 import { Input, SelectDropdown } from '..';
 import { countries } from '../../data/data';
-
-interface FormData {
-  companyName: string;
-  companyEmail: string;
-  country: string;
-  city: string;
-  postalCode: string;
-  streetAddress: string;
-}
+import { useBillFrom } from '../../hooks';
 
 const BillFrom = () => {
-  const [formData, setFormData] = useState<FormData>({
-    companyName: '',
-    companyEmail: '',
-    country: '',
-    city: '',
-    postalCode: '',
-    streetAddress: '',
-  });
+  const { billFrom, setBillFrom } = useBillFrom();
 
-  const handleChange = (id: keyof FormData) => (value: string) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [id]: value,
-    }));
+  const handleInputChange = (id: string, value: string) => {
+    setBillFrom({ [id]: value });
   };
 
   return (
@@ -33,49 +14,51 @@ const BillFrom = () => {
       <h2 className="text-2xl font-semibold">Bill From</h2>
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
-          handleOnChange={value => handleChange('companyName')(value)}
+          handleOnChange={value => handleInputChange('companyName', value)}
           id="companyName"
           placeholder="Company Name"
           title="Company Name"
-          value={formData.companyName}
+          value={billFrom.companyName}
         />
         <Input
-          handleOnChange={value => handleChange('companyEmail')(value)}
+          handleOnChange={value => handleInputChange('companyEmail', value)}
           id="companyEmail"
           placeholder="Company Email"
           title="Company Email"
-          value={formData.companyEmail}
+          value={billFrom.companyEmail}
         />
         <div className="col-span-full grid gap-4 sm:grid-cols-3">
           <SelectDropdown
             id="country"
             label="Country"
-            onChange={handleChange('country')}
+            onChange={value => handleInputChange('country', value)}
             options={countries}
             parentStyles="col-span-full md:col-auto"
             placeholder="Select Country"
           />
           <Input
-            handleOnChange={value => handleChange('city')(value)}
+            handleOnChange={value => handleInputChange('city', value)}
             id="city"
             placeholder="City"
             title="City"
-            value={formData.city}
+            value={billFrom.city}
           />
           <Input
-            handleOnChange={value => handleChange('postalCode')(value)}
+            handleOnChange={value => handleInputChange('postalCode', value)}
             id="postalCode"
             placeholder="Postal Code"
             title="Postal Code"
-            value={formData.postalCode}
+            value={billFrom.postalCode}
           />
           <div className="col-span-full">
             <Input
-              handleOnChange={value => handleChange('streetAddress')(value)}
+              handleOnChange={value =>
+                handleInputChange('streetAddress', value)
+              }
               id="streetAddress"
               placeholder="Street Address"
               title="Street Address"
-              value={formData.streetAddress}
+              value={billFrom.streetAddress}
             />
           </div>
         </div>
