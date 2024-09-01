@@ -49,12 +49,13 @@ const ItemRow: React.FC<ItemRowProps> = ({
         type="number"
       />
       <Input
-        value={item.total}
+        disabled
         handleOnChange={value => onInputChange(index, 'total', value)}
         id={`total-${index}`}
         title="Total"
         placeholder="Total"
         type="number"
+        value={item.total}
       />
     </div>
     <div className="flex items-center justify-end md:justify-center">
