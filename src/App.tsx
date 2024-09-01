@@ -6,7 +6,7 @@ function App() {
     <div className="pb-10">
       <Header />
       <Container>
-        <div className="space-y-8 lg:grid lg:grid-cols-2 lg:gap-6">
+        <div className="space-y-8 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
           <InvoiceForm />
           <InvoicePreview />
         </div>

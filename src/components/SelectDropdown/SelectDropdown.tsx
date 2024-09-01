@@ -6,6 +6,7 @@ interface SelectDropdownProps {
   id: string;
   label: string;
   options: string[];
+  onChange?: (selectedItem: string) => void;
   parentStyles?: string;
   placeholder?: string;
   styles?: string;
@@ -16,6 +17,7 @@ const SelectDropdown: FC<SelectDropdownProps> = ({
   id,
   label,
   options,
+  onChange = () => {},
   parentStyles = '',
   placeholder = 'Select an option...',
   styles = '',
@@ -28,6 +30,7 @@ const SelectDropdown: FC<SelectDropdownProps> = ({
     setSelectedItem(option);
     setIsDropdownOpen(false);
     setIsPlaceholder(false);
+    onChange(option);
   };
 
   const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
@@ -68,14 +71,14 @@ const SelectDropdown: FC<SelectDropdownProps> = ({
 
         {isDropdownOpen && (
           <ul
-            className="absolute left-0 top-[calc(100%+5px)] z-30 w-full rounded-md border border-gray-300 bg-white shadow-lg"
+            className="absolute left-0 top-[calc(100%+5px)] z-30 w-full overflow-hidden rounded-md border border-gray-300 bg-white shadow-lg"
             role="listbox"
             aria-activedescendant={selectedItem}
           >
             {options.map(option => (
               <li
                 key={option}
-                className="px-4 py-2 text-sm transition-colors duration-150 hover:bg-secondary-300 hover:text-white"
+                className="px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-gray-50"
                 onClick={() => handleSelectedItem(option)}
                 role="option"
                 aria-selected={selectedItem === option}
