@@ -3,7 +3,7 @@ import BillTo from '../../components/BillTo/BillTo';
 
 const InvoiceForm = () => {
   return (
-    <div className="w-[676px] rounded-3xl border border-borderColor p-6">
+    <div className="rounded-3xl border border-borderColor p-6">
       <BillFrom />
       <div className="py-8"></div>
       <BillTo />
