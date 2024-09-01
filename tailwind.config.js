@@ -29,10 +29,13 @@ export default {
         borderColor: '#D0D5DD',
       },
       maxWidth: {
-        container: '1376px',
+        container: '1440px',
       },
       padding: {
         4.5: '18px',
+      },
+      screens: {
+        xs: '480px',
       },
     },
     plugins: [],

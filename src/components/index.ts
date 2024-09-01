@@ -3,6 +3,7 @@ export { default as BillTo } from './BillTo/BillTo';
 export { default as Button } from './Button/Button';
 export { default as Container } from './Container/Container';
 export { default as Divider } from './Divider/Divider';
+export { default as Header } from './Header/Header';
 export { default as Input } from './Input/Input';
 export { default as InvoiceDetail } from './InvoiceDetail/InvoiceDetail';
 export { default as InvoiceTable } from './InvoiceTable/InvoiceTable';
