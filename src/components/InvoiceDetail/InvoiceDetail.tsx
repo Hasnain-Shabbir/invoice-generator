@@ -1,4 +1,4 @@
-import { Divider, ListColumn } from '..';
+import { Divider, InvoiceTable, ListColumn } from '..';
 
 const InvoiceDetail = () => {
   const listDataBilledFrom = [
@@ -15,6 +15,11 @@ const InvoiceDetail = () => {
     '699 Hope Throughway',
     'New York, 10001',
     'United States',
+  ];
+
+  const invoiceData = [
+    { id: 1, item: 'Banner Design', qty: 1, price: 120, totalAmount: 120.0 },
+    { id: 2, item: 'Email Design', qty: 2, price: 100, totalAmount: 200 },
   ];
 
   return (
@@ -35,6 +40,8 @@ const InvoiceDetail = () => {
           title="Project Description"
         />
       </div>
+      <InvoiceTable items={invoiceData} />
+      <Divider margin="my-4" />
     </div>
   );
 };
