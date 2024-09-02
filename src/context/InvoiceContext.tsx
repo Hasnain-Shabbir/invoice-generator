@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, Dispatch, ReactNode } from 'react';
 import { BillFrom, BillTo, Item, InvoiceState } from '../types';
 
 // Initial state
@@ -22,7 +22,7 @@ const initialState: InvoiceState = {
     projectDescription: '',
     streetAddress: '',
   },
-  items: [],
+  items: [{ itemName: '', qty: 0, price: 0, total: 0 }],
 };
 
 // Action types
@@ -34,7 +34,6 @@ type Action =
   | { type: 'REMOVE_ITEM'; index: number }
   | { type: 'UPDATE_ITEM'; index: number; payload: Partial<Item> };
 
-// Reducer function to manage state updates
 const invoiceReducer = (state: InvoiceState, action: Action): InvoiceState => {
   switch (action.type) {
     case 'SET_BILL_FROM':
@@ -62,17 +61,16 @@ const invoiceReducer = (state: InvoiceState, action: Action): InvoiceState => {
   }
 };
 
-// Create context
 export const InvoiceContext = createContext<{
   state: InvoiceState;
-  dispatch: React.Dispatch<Action>;
+  dispatch: Dispatch<Action>;
 }>({
   state: initialState,
   dispatch: () => null,
 });
 
 // Provider component
-export const InvoiceProvider: React.FC<{ children: React.ReactNode }> = ({
+export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(invoiceReducer, initialState);
