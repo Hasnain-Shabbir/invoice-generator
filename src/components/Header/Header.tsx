@@ -1,9 +1,15 @@
+import { useContext } from 'react';
+import { InvoiceContext } from '../../context/InvoiceContext';
+import { Button, Container, Divider } from '..';
 import { Logo } from '../../assets';
-import Button from '../Button/Button';
-import Container from '../Container/Container';
-import Divider from '../Divider/Divider';
 
 const Header = () => {
+  const { dispatch } = useContext(InvoiceContext);
+
+  const handleReset = () => {
+    dispatch({ type: 'RESET_FORM' });
+  };
+
   return (
     <header>
       <div className="flex items-center justify-center p-5">
@@ -20,7 +26,9 @@ const Header = () => {
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 xs:flex-row">
-              <Button variant="outlined">Reset</Button>
+              <Button variant="outlined" onClick={handleReset}>
+                Reset
+              </Button>
               <Button>Save</Button>
             </div>
           </div>

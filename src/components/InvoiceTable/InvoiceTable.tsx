@@ -1,14 +1,8 @@
 import { FC } from 'react';
-
-interface InvoiceItem {
-  item: string;
-  qty: number | string;
-  price: number | string;
-  totalAmount: number | string;
-}
+import { Item } from '../../types';
 
 interface InvoiceTableProps {
-  items: InvoiceItem[];
+  items: Item[];
 }
 
 const InvoiceTable: FC<InvoiceTableProps> = ({ items }) => {
@@ -37,10 +31,10 @@ const InvoiceTable: FC<InvoiceTableProps> = ({ items }) => {
         <tbody>
           {items.map((item, index) => (
             <tr key={index} className="bg-white font-medium">
-              <td className="px-3 py-2">{item.item}</td>
+              <td className="px-3 py-2">{item.itemName}</td>
               <td className="px-3 py-2">{item.qty}</td>
               <td className="px-3 py-2">{item.price}</td>
-              <td className="px-3 py-2 text-right">{item.totalAmount}</td>
+              <td className="px-3 py-2 text-right">{item.total}</td>
             </tr>
           ))}
         </tbody>
