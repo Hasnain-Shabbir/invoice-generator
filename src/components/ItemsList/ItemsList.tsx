@@ -1,17 +1,18 @@
 import React from 'react';
 import { Button, ItemRow } from '..';
-import { useItems } from '../../hooks';
+import { useItemList } from '../../hooks';
+import { Item } from '../../types';
 import { Plus } from '../../assets';
 
 const ItemsList: React.FC = () => {
   const { items, handleInputChange, handleAddItem, handleRemoveItem } =
-    useItems();
+    useItemList();
 
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold">Items List</h2>
       <div className="flex flex-col gap-4">
-        {items.map((item, index) => (
+        {items.map((item: Item, index: number) => (
           <ItemRow
             key={index}
             item={item}
