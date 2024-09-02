@@ -1,26 +1,14 @@
+import { useContext, useMemo } from 'react';
+import { InvoiceContext } from '../../context/InvoiceContext';
 import { Divider, InvoiceSummary, InvoiceTable, ListColumn } from '..';
 
 const InvoiceDetail = () => {
-  const listDataBilledFrom = [
-    'Weissnat Design Agency',
-    'support@weissnatdesign.co',
-    '1234 Elm Street',
-    'New York, 10001',
-    'United States',
-  ];
+  const { state } = useContext(InvoiceContext);
+  const { billFrom, billTo, items } = state;
 
-  const listDataBilledTo = [
-    'John Glover',
-    'john.glover@gmail.com',
-    '699 Hope Throughway',
-    'New York, 10001',
-    'United States',
-  ];
-
-  const invoiceData = [
-    { id: 1, item: 'Banner Design', qty: 1, price: 120, totalAmount: 120.0 },
-    { id: 2, item: 'Email Design', qty: 2, price: 100, totalAmount: 200 },
-  ];
+  const subtotal = useMemo(() => {
+    return items.reduce((acc, item) => acc + item.total, 0);
+  }, [items]);
 
   return (
     <div className="rounded-2xl bg-white p-4">
@@ -28,21 +16,41 @@ const InvoiceDetail = () => {
       <Divider margin="my-4" />
       <div className="space-y-8">
         <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
-          <ListColumn listData="12 Dec, 2024" title="Invoice Date" />
-          <ListColumn listData="Net 30 Days" title="Payment Terms" />
+          <ListColumn listData={billTo.invoiceDate} title="Invoice Date" />
+          <ListColumn listData={billTo.invoiceTerms} title="Payment Terms" />
         </div>
         <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
-          <ListColumn listData={listDataBilledFrom} title="Billed From" />
-          <ListColumn listData={listDataBilledTo} title="Billed To" />
+          <ListColumn
+            listData={[
+              billFrom.companyName,
+              billFrom.companyEmail,
+              billFrom.streetAddress,
+              billFrom.city,
+              billFrom.country,
+              billFrom.postalCode,
+            ]}
+            title="Billed From"
+          />
+          <ListColumn
+            listData={[
+              billTo.clientName,
+              billTo.clientEmail,
+              billTo.streetAddress,
+              billTo.city,
+              billTo.country,
+              billTo.postalCode,
+            ]}
+            title="Billed To"
+          />
         </div>
         <ListColumn
-          listData="Graphic Design Project"
+          listData={billTo.projectDescription}
           title="Project Description"
         />
       </div>
-      <InvoiceTable items={invoiceData} />
+      <InvoiceTable items={items} />
       <Divider margin="my-4" />
-      <InvoiceSummary tax="10" subtotal={320} />
+      <InvoiceSummary tax="10" subtotal={subtotal} />
     </div>
   );
 };

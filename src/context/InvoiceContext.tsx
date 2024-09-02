@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, Dispatch, ReactNode } from 'react';
 import { BillFrom, BillTo, Item, InvoiceState } from '../types';
+import { getCurrentDate } from '../utils';
 
 // Initial state
 const initialState: InvoiceState = {
@@ -17,7 +18,7 @@ const initialState: InvoiceState = {
     country: '',
     city: '',
     invoiceTerms: '',
-    invoiceDate: '',
+    invoiceDate: getCurrentDate(),
     postalCode: '',
     projectDescription: '',
     streetAddress: '',
@@ -32,7 +33,8 @@ type Action =
   | { type: 'SET_ITEMS'; payload: Item[] }
   | { type: 'ADD_ITEM'; payload: Item }
   | { type: 'REMOVE_ITEM'; index: number }
-  | { type: 'UPDATE_ITEM'; index: number; payload: Partial<Item> };
+  | { type: 'UPDATE_ITEM'; index: number; payload: Partial<Item> }
+  | { type: 'RESET_FORM' };
 
 const invoiceReducer = (state: InvoiceState, action: Action): InvoiceState => {
   switch (action.type) {
@@ -56,6 +58,8 @@ const invoiceReducer = (state: InvoiceState, action: Action): InvoiceState => {
           i === action.index ? { ...item, ...action.payload } : item,
         ),
       };
+    case 'RESET_FORM':
+      return initialState;
     default:
       return state;
   }

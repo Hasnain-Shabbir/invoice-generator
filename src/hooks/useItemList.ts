@@ -16,7 +16,7 @@ const useItemList = () => {
     if (field === 'qty' || field === 'price') {
       const qty = field === 'qty' ? parseFloat(value) : updatedItem.qty;
       const price = field === 'price' ? parseFloat(value) : updatedItem.price;
-      updatedItem.total = qty * price;
+      updatedItem.total = parseFloat((qty * price).toFixed(2));
     }
 
     dispatch({

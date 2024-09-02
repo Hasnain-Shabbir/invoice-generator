@@ -28,8 +28,17 @@ const Input: FC<InputProps> = ({
   value,
 }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    if (type === 'number') {
+      const numericValue = parseFloat(inputValue);
+      if (numericValue < 0) {
+        return;
+      }
+    }
+
     if (!disabled && !readOnly) {
-      handleOnChange(e.target.value);
+      handleOnChange(inputValue);
     }
   };
 
@@ -53,6 +62,7 @@ const Input: FC<InputProps> = ({
         className={`${baseStyles} ${disabled || readOnly ? disabledOrReadOnlyStyles : ''} ${errorStyles} ${styles}`}
         disabled={disabled}
         readOnly={readOnly}
+        min={type === 'number' ? 0 : undefined}
       />
       {error && (
         <span className="mt-1 block text-sm text-red-500">{error}</span>
