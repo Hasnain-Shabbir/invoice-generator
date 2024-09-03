@@ -1,13 +1,16 @@
+import { FC, useContext } from 'react';
+import { Controller } from 'react-hook-form';
 import { Input, SelectDropdown } from '..';
 import { countries } from '../../data/data';
-import { useBillTo } from '../../hooks';
+import { InvoiceContext } from '../../context/InvoiceContext';
 
-const BillTo = () => {
-  const { billTo, setBillTo } = useBillTo();
-
-  const handleInputChange = (id: string, value: string) => {
-    setBillTo({ [id]: value });
-  };
+const BillTo: FC = () => {
+  const { formMethods } = useContext(InvoiceContext);
+  const {
+    control,
+    formState: { errors },
+    register,
+  } = formMethods;
 
   const invoiceTerms = ['Net 10 days', 'Net 20 days', 'Net 30 days'];
 
@@ -16,80 +19,91 @@ const BillTo = () => {
       <h2 className="text-2xl font-semibold">Bill To</h2>
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
-          handleOnChange={value => handleInputChange('clientName', value)}
           id="clientName"
           placeholder="Client's Name"
           title="Client's Name"
-          value={billTo.clientName}
+          error={errors.billTo?.clientName?.message}
+          {...register('billTo.clientName')}
         />
         <Input
-          handleOnChange={value => handleInputChange('clientEmail', value)}
           id="clientEmail"
           placeholder="Client's Email"
           title="Client's Email"
-          value={billTo.clientEmail}
+          error={errors.billTo?.clientEmail?.message}
+          {...register('billTo.clientEmail')}
         />
         <div className="col-span-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          <SelectDropdown
-            parentStyles="col-span-full md:col-auto"
-            placeholder="Select Country"
-            onChange={value => handleInputChange('country', value)}
-            options={countries}
-            label="Country"
-            id="country"
+          <Controller
+            name="billTo.country"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <SelectDropdown
+                id="country"
+                label="Country"
+                options={countries}
+                placeholder="Select Country"
+                value={value}
+                onChange={onChange}
+                error={errors.billTo?.country?.message}
+              />
+            )}
           />
           <Input
-            handleOnChange={value => handleInputChange('city', value)}
             id="city"
             placeholder="City"
             title="City"
-            value={billTo.city}
+            error={errors.billTo?.city?.message}
+            {...register('billTo.city')}
           />
           <Input
-            handleOnChange={value => handleInputChange('postalCode', value)}
             id="postalCode"
             placeholder="Postal Code"
             title="Postal Code"
-            value={billTo.postalCode}
+            error={errors.billTo?.postalCode?.message}
+            {...register('billTo.postalCode')}
           />
           <div className="col-span-full">
             <Input
-              handleOnChange={value =>
-                handleInputChange('streetAddress', value)
-              }
               id="streetAddress"
               placeholder="Street Address"
               title="Street Address"
-              value={billTo.streetAddress}
+              error={errors.billTo?.streetAddress?.message}
+              {...register('billTo.streetAddress')}
             />
           </div>
         </div>
       </div>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <Input
-          handleOnChange={value => handleInputChange('invoiceDate', value)}
           id="invoiceDate"
-          title="Invoice Date"
           placeholder="Date"
+          title="Invoice Date"
+          error={errors.billTo?.invoiceDate?.message}
           type="date"
-          value={billTo.invoiceDate}
+          {...register('billTo.invoiceDate')}
         />
-        <SelectDropdown
-          id="invoiceTerms"
-          label="Payment Terms"
-          options={invoiceTerms}
-          placeholder="Select Term"
-          onChange={value => handleInputChange('invoiceTerms', value)}
+        <Controller
+          name="billTo.invoiceTerms"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <SelectDropdown
+              id="invoiceTerms"
+              label="Payment Terms"
+              options={invoiceTerms}
+              placeholder="Select Term"
+              value={value}
+              onChange={onChange}
+              error={errors.billTo?.invoiceTerms?.message}
+            />
+          )}
         />
         <div className="col-span-full">
           <Input
-            handleOnChange={value =>
-              handleInputChange('projectDescription', value)
-            }
             id="projectDescription"
             placeholder="Project Description"
             title="Project Description"
-            value={billTo.projectDescription}
+            error={errors.billTo?.projectDescription?.message}
+            {...register('billTo.projectDescription')}
           />
         </div>
       </div>
