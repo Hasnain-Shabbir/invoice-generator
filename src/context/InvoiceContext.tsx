@@ -1,5 +1,8 @@
 import React, { createContext, useReducer, Dispatch, ReactNode } from 'react';
-import { BillFrom, BillTo, Item, InvoiceState } from '../types';
+import { useForm, UseFormReturn } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormData, invoiceFormSchema } from '../schema';
+import { BillFrom, BillTo, InvoiceState, Item } from '../types';
 import { getCurrentDate } from '../utils';
 
 // Initial state
@@ -68,19 +71,26 @@ const invoiceReducer = (state: InvoiceState, action: Action): InvoiceState => {
 export const InvoiceContext = createContext<{
   state: InvoiceState;
   dispatch: Dispatch<Action>;
+  formMethods: UseFormReturn<FormData>;
 }>({
   state: initialState,
   dispatch: () => null,
+  formMethods: {} as UseFormReturn<FormData>,
 });
 
-// Provider component
 export const InvoiceProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(invoiceReducer, initialState);
 
+  const formMethods = useForm<FormData>({
+    defaultValues: initialState,
+    mode: 'onChange',
+    resolver: zodResolver(invoiceFormSchema),
+  });
+
   return (
-    <InvoiceContext.Provider value={{ state, dispatch }}>
+    <InvoiceContext.Provider value={{ state, dispatch, formMethods }}>
       {children}
     </InvoiceContext.Provider>
   );

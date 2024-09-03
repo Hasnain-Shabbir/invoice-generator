@@ -1,13 +1,15 @@
-import { useContext, useMemo } from 'react';
+import { FC, useContext, useMemo } from 'react';
 import { InvoiceContext } from '../../context/InvoiceContext';
 import { Divider, InvoiceSummary, InvoiceTable, ListColumn } from '..';
 
-const InvoiceDetail = () => {
-  const { state } = useContext(InvoiceContext);
-  const { billFrom, billTo, items } = state;
+const InvoiceDetail: FC = () => {
+  const { formMethods } = useContext(InvoiceContext);
+  const { watch } = formMethods;
+  const formFieldsData = watch();
+  const { billFrom, billTo, items } = formFieldsData;
 
   const subtotal = useMemo(() => {
-    return items.reduce((acc, item) => acc + item.total, 0);
+    return items.reduce((acc, item) => acc + item.price * item.qty, 0);
   }, [items]);
 
   return (

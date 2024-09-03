@@ -1,5 +1,7 @@
 import React from 'react';
+import { FieldErrors, UseFormRegister, UseFormTrigger } from 'react-hook-form';
 import { Button, Input } from '..';
+import { InvoiceState } from '../../types';
 import { Trash } from '../../assets';
 
 interface Item {
@@ -10,56 +12,59 @@ interface Item {
 }
 
 interface ItemRowProps {
-  item: Item;
   index: number;
-  onInputChange: (index: number, field: keyof Item, value: string) => void;
-  onRemove: (index: number) => void;
+  item: Item;
+  onInputChange: (field: keyof Item, value: string) => void;
+  onRemove: () => void;
+  register: UseFormRegister<InvoiceState>;
+  errors: FieldErrors<InvoiceState>;
+  trigger: UseFormTrigger<InvoiceState>;
 }
 
 const ItemRow: React.FC<ItemRowProps> = ({
-  item,
   index,
-  onInputChange,
   onRemove,
+  register,
+  errors,
 }) => (
   <div className="grid items-end gap-4 md:flex">
-    <div className="grid items-center gap-4 sm:grid-cols-4 md:grid-cols-5">
+    <div className="grid items-center gap-4 sm:grid-cols-4">
       <Input
-        parentStyles="md:col-span-2"
-        value={item.itemName}
-        handleOnChange={value => onInputChange(index, 'itemName', value)}
+        {...register(`items.${index}.itemName` as const, {
+          required: 'Item name is required',
+        })}
+        error={errors.items?.[index]?.itemName?.message}
         id={`itemName-${index}`}
-        title="Item Name"
         placeholder="Item name"
+        title="Item Name"
       />
       <Input
-        value={item.qty}
-        handleOnChange={value => onInputChange(index, 'qty', value)}
+        {...register(`items.${index}.qty`, { valueAsNumber: true })}
+        error={errors.items?.[index]?.qty?.message}
         id={`qty-${index}`}
-        title="Qty."
         placeholder="Qty"
+        title="Qty."
         type="number"
       />
       <Input
-        value={item.price}
-        handleOnChange={value => onInputChange(index, 'price', value)}
+        {...register(`items.${index}.price`, { valueAsNumber: true })}
+        error={errors.items?.[index]?.price?.message}
         id={`price-${index}`}
-        title="Price"
         placeholder="Price"
+        title="Price"
         type="number"
       />
       <Input
+        {...register(`items.${index}.total`, { valueAsNumber: true })}
         disabled
-        handleOnChange={value => onInputChange(index, 'total', value)}
         id={`total-${index}`}
-        title="Total"
         placeholder="Total"
+        title="Total"
         type="number"
-        value={item.total}
       />
     </div>
     <div className="flex items-center justify-end md:justify-center">
-      <Button variant="outlined" onClick={() => onRemove(index)}>
+      <Button variant="outlined" onClick={onRemove}>
         <Trash />
       </Button>
     </div>

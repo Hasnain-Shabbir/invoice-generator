@@ -1,13 +1,20 @@
-import { useContext } from 'react';
-import { InvoiceContext } from '../../context/InvoiceContext';
+import { FC, useContext } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import { Button, Container, Divider } from '..';
+import { InvoiceContext } from '../../context/InvoiceContext';
+import { InvoiceState } from '../../types';
 import { Logo } from '../../assets';
 
-const Header = () => {
-  const { dispatch } = useContext(InvoiceContext);
+const Header: FC = () => {
+  const { formMethods } = useContext(InvoiceContext);
+  const { handleSubmit, reset } = formMethods;
 
   const handleReset = () => {
-    dispatch({ type: 'RESET_FORM' });
+    reset();
+  };
+
+  const onFormSubmit: SubmitHandler<InvoiceState> = data => {
+    console.log('Invoice data:', data);
   };
 
   return (
@@ -26,10 +33,10 @@ const Header = () => {
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 xs:flex-row">
-              <Button variant="outlined" onClick={handleReset}>
+              <Button onClick={handleReset} variant="outlined">
                 Reset
               </Button>
-              <Button>Save</Button>
+              <Button onClick={handleSubmit(onFormSubmit)}>Save</Button>
             </div>
           </div>
         </Container>

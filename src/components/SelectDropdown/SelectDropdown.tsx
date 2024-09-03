@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { ChevronDown } from '../../assets';
 
 interface SelectDropdownProps {
@@ -6,94 +6,109 @@ interface SelectDropdownProps {
   id: string;
   label: string;
   options: string[];
-  onChange?: (selectedItem: string) => void;
+  onChange: (selectedItem: string) => void;
   parentStyles?: string;
   placeholder?: string;
   styles?: string;
+  value: string;
 }
 
-const SelectDropdown: FC<SelectDropdownProps> = ({
-  error,
-  id,
-  label,
-  options,
-  onChange = () => {},
-  parentStyles = '',
-  placeholder = 'Select an option...',
-  styles = '',
-}) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(placeholder);
-  const [isPlaceholder, setIsPlaceholder] = useState(true);
+const SelectDropdown = forwardRef<HTMLDivElement, SelectDropdownProps>(
+  (
+    {
+      error,
+      id,
+      label,
+      options,
+      value,
+      onChange,
+      parentStyles = '',
+      placeholder = 'Select an option...',
+      styles = '',
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ref,
+  ) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectedItem = (option: string) => {
-    setSelectedItem(option);
-    setIsDropdownOpen(false);
-    setIsPlaceholder(false);
-    onChange(option);
-  };
+    const handleSelectedItem = (option: string) => {
+      onChange(option);
+      setIsDropdownOpen(false);
+    };
 
-  const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
+    const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
 
-  return (
-    <div className={`w-full ${parentStyles}`}>
-      <label htmlFor={id} className="text-sm font-medium text-secondary-200">
-        {label}
-      </label>
-      <div
-        id={id}
-        className={`relative mt-1.5 w-full cursor-pointer rounded-md border px-3.5 py-2.5 shadow-input transition-all duration-100 ease-in-out ${
-          error
-            ? 'border-red-500'
-            : isDropdownOpen
-              ? 'border-gray-400'
-              : 'border-borderColor'
-        } ${styles}`}
-      >
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
+    return (
+      <div className={`w-full ${parentStyles}`}>
+        <label htmlFor={id} className="text-sm font-medium text-secondary-200">
+          {label}
+        </label>
         <div
-          className={`flex items-center justify-between font-normal ${
-            isPlaceholder ? 'text-secondary-100' : 'text-secondary-300'
-          }`}
-          onClick={toggleDropdown}
-          role="button"
-          aria-haspopup="listbox"
-          aria-expanded={isDropdownOpen}
+          id={id}
+          ref={dropdownRef}
+          className={`relative mt-1.5 w-full cursor-pointer rounded-md border px-3.5 py-2.5 shadow-input transition-all duration-100 ease-in-out ${
+            error
+              ? 'border-red-500'
+              : isDropdownOpen
+                ? 'border-gray-400'
+                : 'border-borderColor'
+          } ${styles}`}
         >
-          <span>{selectedItem}</span>
-          <span
-            className={`ml-2 text-lg text-gray-400 transition-transform ${
-              isDropdownOpen ? 'rotate-180' : ''
-            }`}
+          <div
+            className={`flex items-center justify-between font-normal ${
+              value === '' || value === placeholder
+                ? 'text-secondary-100'
+                : 'text-secondary-300'
+            } cursor-pointer`}
+            onClick={toggleDropdown}
+            role="button"
+            aria-expanded={isDropdownOpen}
+            aria-haspopup="true"
           >
-            <ChevronDown />
-          </span>
+            {value === '' || value === placeholder ? placeholder : value}
+            <span
+              className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+            >
+              <ChevronDown />
+            </span>
+          </div>
+          {isDropdownOpen && (
+            <ul className="absolute left-0 z-10 mt-3 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg">
+              {options.map(option => (
+                <li
+                  key={option}
+                  className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleSelectedItem(option)}
+                >
+                  {option}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-
-        {isDropdownOpen && (
-          <ul
-            className="absolute left-0 top-[calc(100%+5px)] z-30 w-full overflow-hidden rounded-md border border-gray-300 bg-white shadow-lg"
-            role="listbox"
-            aria-activedescendant={selectedItem}
-          >
-            {options.map(option => (
-              <li
-                key={option}
-                className="px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-gray-50"
-                onClick={() => handleSelectedItem(option)}
-                role="option"
-                aria-selected={selectedItem === option}
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
+        {error && (
+          <span className="mt-1 block text-sm text-red-500">{error}</span>
         )}
       </div>
-      {error && (
-        <span className="mt-1 block text-sm text-red-500">{error}</span>
-      )}
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default SelectDropdown;
