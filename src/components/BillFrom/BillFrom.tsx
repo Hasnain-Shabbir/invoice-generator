@@ -1,66 +1,75 @@
+import React, { useContext } from 'react';
+import { Controller } from 'react-hook-form';
 import { Input, SelectDropdown } from '..';
+import { InvoiceContext } from '../../context/InvoiceContext';
 import { countries } from '../../data/data';
-import { useBillFrom } from '../../hooks';
 
-const BillFrom = () => {
-  const { billFrom, setBillFrom } = useBillFrom();
-
-  const handleInputChange = (id: string, value: string) => {
-    setBillFrom({ [id]: value });
-  };
+const BillFrom: React.FC = () => {
+  const { formMethods } = useContext(InvoiceContext);
+  const {
+    control,
+    formState: { errors },
+    register,
+  } = formMethods;
 
   return (
     <div>
       <h2 className="text-2xl font-semibold">Bill From</h2>
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
-          handleOnChange={value => handleInputChange('companyName', value)}
           id="companyName"
           placeholder="Company Name"
           title="Company Name"
-          value={billFrom.companyName}
+          error={errors.billFrom?.companyName?.message}
+          {...register('billFrom.companyName')}
         />
         <Input
-          handleOnChange={value => handleInputChange('companyEmail', value)}
           id="companyEmail"
           placeholder="Company Email"
           title="Company Email"
-          value={billFrom.companyEmail}
+          error={errors.billFrom?.companyEmail?.message}
+          {...register('billFrom.companyEmail')}
         />
         <div className="col-span-full grid gap-4 sm:grid-cols-3">
-          <SelectDropdown
-            id="country"
-            label="Country"
-            onChange={value => handleInputChange('country', value)}
-            options={countries}
-            parentStyles="col-span-full md:col-auto"
-            placeholder="Select Country"
+          <Controller
+            name="billFrom.country"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <SelectDropdown
+                id="country"
+                label="Country"
+                options={countries}
+                placeholder="Select Country"
+                value={value}
+                onChange={onChange}
+                error={errors.billFrom?.country?.message}
+                parentStyles="col-span-full md:col-auto"
+              />
+            )}
           />
           <Input
-            handleOnChange={value => handleInputChange('city', value)}
             id="city"
             placeholder="City"
             title="City"
-            value={billFrom.city}
+            error={errors.billFrom?.city?.message}
+            {...register('billFrom.city')}
           />
           <Input
-            handleOnChange={value => handleInputChange('postalCode', value)}
             id="postalCode"
             placeholder="Postal Code"
             title="Postal Code"
-            value={billFrom.postalCode}
+            error={errors.billFrom?.postalCode?.message}
+            {...register('billFrom.postalCode')}
           />
-          <div className="col-span-full">
-            <Input
-              handleOnChange={value =>
-                handleInputChange('streetAddress', value)
-              }
-              id="streetAddress"
-              placeholder="Street Address"
-              title="Street Address"
-              value={billFrom.streetAddress}
-            />
-          </div>
+        </div>
+        <div className="col-span-full">
+          <Input
+            id="streetAddress"
+            placeholder="Street Address"
+            title="Street Address"
+            error={errors.billFrom?.streetAddress?.message}
+            {...register('billFrom.streetAddress')}
+          />
         </div>
       </div>
     </div>
