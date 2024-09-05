@@ -2,6 +2,11 @@
 
 Welcome to the Invoice Generator App! This single-page application is designed to streamline the process of creating and managing invoices with a range of powerful features. From real-time updates to robust form validation, this app is built to provide a seamless user experience.
 
+## Live Website
+```bash 
+https://hs-invoice-generator.netlify.app/
+```
+
 ## Demo
 
 ![Invoice Generator Web](src/assets/invoice-generator-web.png?raw=true 'Web View')
