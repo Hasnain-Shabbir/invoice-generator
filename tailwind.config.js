@@ -26,6 +26,10 @@ export default {
           200: '#344054',
           300: '#101828',
         },
+        'c-neutral': {
+          600: '#8E8E8E',
+          700: '#555555'
+        },
         borderColor: '#D0D5DD',
       },
       maxWidth: {

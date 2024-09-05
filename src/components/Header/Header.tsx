@@ -1,21 +1,14 @@
-import { FC, useContext } from 'react';
-import { SubmitHandler } from 'react-hook-form';
+import { FC, useContext, useId } from 'react';
 import { Button, Container, Divider } from '..';
 import { InvoiceContext } from '../../context/InvoiceContext';
-import { InvoiceState } from '../../types';
 import { Logo } from '../../assets';
+import { useInvoiceHandler } from '../../hooks/useInvoiceHandler';
 
 const Header: FC = () => {
+  const mutationUniqueId = useId();
   const { formMethods } = useContext(InvoiceContext);
-  const { handleSubmit, reset } = formMethods;
-
-  const handleReset = () => {
-    reset();
-  };
-
-  const onFormSubmit: SubmitHandler<InvoiceState> = data => {
-    console.log('Invoice data:', data);
-  };
+  const { handleSubmit, onFormSubmit, handleReset, loading } =
+    useInvoiceHandler(formMethods, mutationUniqueId);
 
   return (
     <header>
@@ -36,7 +29,9 @@ const Header: FC = () => {
               <Button onClick={handleReset} variant="outlined">
                 Reset
               </Button>
-              <Button onClick={handleSubmit(onFormSubmit)}>Save</Button>
+              <Button onClick={handleSubmit(onFormSubmit)}>
+                {loading ? 'Saving...' : 'Save'}
+              </Button>
             </div>
           </div>
         </Container>

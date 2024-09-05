@@ -11,4 +11,5 @@ export { default as InvoiceSummary } from './InvoiceSummary/InvoiceSummary';
 export { default as ItemsList } from './ItemsList/ItemsList';
 export { default as ItemRow } from './ItemRow/ItemRow';
 export { default as ListColumn } from './ListColumn/ListColumn';
+export { default as ToastNotification } from './ToastNotification/ToastNotification';
 export { default as SelectDropdown } from './SelectDropdown/SelectDropdown';
