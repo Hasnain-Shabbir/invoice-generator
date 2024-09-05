@@ -1,16 +1,23 @@
-import { FC, useContext, useMemo } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { InvoiceContext } from '../../context/InvoiceContext';
 import { Divider, InvoiceSummary, InvoiceTable, ListColumn } from '..';
 
 const InvoiceDetail: FC = () => {
+  const [subtotal, setSubtotal] = useState(0);
   const { formMethods } = useContext(InvoiceContext);
+
   const { watch } = formMethods;
   const formFieldsData = watch();
   const { billFrom, billTo, items } = formFieldsData;
+  const pricesAndQtys = items.flatMap(item => [item.price, item.qty]);
 
-  const subtotal = useMemo(() => {
-    return items.reduce((acc, item) => acc + item.price * item.qty, 0);
-  }, [items]);
+  useEffect(() => {
+    const newSubtotal = items.reduce(
+      (acc, item) => acc + (item.price || 0) * (item.qty || 0),
+      0,
+    );
+    setSubtotal(newSubtotal);
+  }, [items, pricesAndQtys]);
 
   return (
     <div className="rounded-2xl bg-white p-4">
