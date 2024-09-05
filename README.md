@@ -5,7 +5,7 @@ Welcome to the Invoice Generator App! This single-page application is designed t
 ## Demo
 
 ![Invoice Generator Web](src/assets/invoice-generator-web.png?raw=true 'Web View')
-![Invoice Generator Mobile](src/assets/invoice-generator-web.mobile?raw=true 'Mobile View')
+![Invoice Generator Mobile](src/assets/invoice-generator-mobile.png?raw=true 'Mobile View')
 
 ## 🚀 Features
 
