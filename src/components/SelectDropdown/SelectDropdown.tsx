@@ -26,7 +26,6 @@ const SelectDropdown = forwardRef<HTMLDivElement, SelectDropdownProps>(
       placeholder = 'Select an option...',
       styles = '',
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref,
   ) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -56,7 +55,7 @@ const SelectDropdown = forwardRef<HTMLDivElement, SelectDropdownProps>(
     }, []);
 
     return (
-      <div className={`w-full ${parentStyles}`}>
+      <div ref={ref} className={`w-full ${parentStyles}`}>
         <label htmlFor={id} className="text-sm font-medium text-secondary-200">
           {label}
         </label>
