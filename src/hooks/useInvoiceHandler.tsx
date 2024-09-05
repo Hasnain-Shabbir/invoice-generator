@@ -32,6 +32,7 @@ export const useInvoiceHandler = (
           { icon: false },
         );
 
+        handleReset();
         console.log('Invoice created:', result);
       } catch (err) {
         if (err instanceof Error) {
@@ -42,11 +43,12 @@ export const useInvoiceHandler = (
             />,
             { icon: false },
           );
+          handleReset();
           console.error('Error creating Invoice', err);
         }
       }
     },
-    [createInvoice, mutationUniqueId],
+    [createInvoice, mutationUniqueId, handleReset],
   );
 
   return { handleSubmit, onFormSubmit, handleReset, loading };
