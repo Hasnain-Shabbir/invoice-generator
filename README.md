@@ -1,50 +1,57 @@
-# React + TypeScript + Vite
+# Invoice Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Invoice Generator App! This single-page application is designed to streamline the process of creating and managing invoices with a range of powerful features. From real-time updates to robust form validation, this app is built to provide a seamless user experience.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Invoice Generator Web](src/assets/invoice-generator-web.png?raw=true 'Web View')
+![Invoice Generator Mobile](src/assets/invoice-generator-web.mobile?raw=true 'Mobile View')
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Real-Time Updates:** View changes in real-time as you fill out the form, providing immediate feedback and ensuring accuracy.
+- **Form Validation:** Leveraging React Hook Form for comprehensive form validation, ensuring data integrity and user-friendly error handling.
+- **TypeScript Usage:** Utilizing TypeScript for enhanced code quality, type safety, and maintainability.
+- **GraphQL API Integration:** Seamlessly connect to a GraphQL API for efficient data fetching and manipulation.
+- **Responsive Design:** Fully responsive UI, meticulously aligned with the Figma design to ensure a consistent and polished look across all devices.
+- **Custom Input Rows:** Easily add and manage multiple projects/items, including dynamic fields for price, quantity, and more.
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ Development Tools
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Prettier:** Automatically formats your code to ensure a consistent style throughout the codebase.
+- **ESLint:** Analyzes code for potential errors and enforces coding standards, helping maintain high code quality and consistency.
+- **Husky:** Enforces pre-commit and pre-push hooks to ensure code quality before committing changes, preventing issues from being pushed to the repository.
+
+## Tech Stack
+
+**Client:** React, Context API, TypeScript, GraphQL, Apollo Client, React Hook Form, Tailwind CSS
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Hasnain-Shabbir/invoice-generator.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Go to the project directory
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+  cd invoice-generator
 ```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+## Deployment
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/449c9690-dc33-4e16-bed4-00b9333379e2/deploy-status)](https://app.netlify.com/sites/hs-invoice-generator/deploys)
